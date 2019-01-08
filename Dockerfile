@@ -105,6 +105,14 @@ COPY config/ipydeps /root/.config/ipydeps/
 
 RUN \
   min-apk \
+    gcc \
+	  gfortran \
+	  g++ \
+	  build-base \
+	  wget \
+	  freetype-dev \
+	  libpng-dev \
+    openblas-dev \
     libffi-dev \
     py3-pygments \
     py3-cffi \
@@ -116,6 +124,10 @@ RUN \
     python3 \
     python3-dev && \
   pip3 install --no-cache-dir --upgrade setuptools pip && \
+  pip3 install --no-cache-dir numpy && \
+  pip3 install --no-cache-dir slycot  && \
+  pip3 install --no-cache-dir scipy  && \
+  pip3 install --no-cache-dir git+https://github.com/python-control/python-control  && \
   mkdir -p `python -m site --user-site` && \
   min-pip3 notebook==5.2.2 jupyter ipywidgets==6.0.1 jupyter_dashboards pypki2 ipydeps ordo && \
   pip3 install http://github.com/nbgallery/nbgallery-extensions/tarball/master#egg=jupyter_nbgallery && \
@@ -144,6 +156,7 @@ RUN \
   patch -p0 < /root/.patches/websocket_keepalive
 
 
+  
 ########################################################################
 # Add dynamic kernels
 ########################################################################
